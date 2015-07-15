@@ -16,12 +16,10 @@ driver.get(url).then(function() {
   console.log(url);
 });
 
-setInterval(function() {
-  console.log('bar');
-}, 4000);
-
 process.on('SIGTERM', function() {
   driver.quit().then(function() {
     process.exit();
   });
 });
+
+process.stdin.resume();
