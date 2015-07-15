@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+var hostname = require("os").hostname();
+var url = process.argv[2].replace('localhost', hostname);
+var hubUrl = process.argv[3];
+var browserName = process.argv[4];
+
+var webdriver = require('selenium-webdriver')
+
+var driver = new webdriver.Builder().
+  withCapabilities({browserName: browserName}).
+  usingServer(hubUrl).
+  build();
+
+driver.get(url).then(function() {
+  console.log(url);
+});
+
+setInterval(function() {
+  console.log('bar');
+}, 4000);
+
+process.on('SIGTERM', function() {
+  driver.quit().then(function() {
+    process.exit();
+  });
+});

@@ -1,0 +1,19 @@
+{
+  "name": "testem-selenium-launcher",
+  "version": "0.1.0",
+  "description": "A selenium launcher for Testem",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
+  "author": "Andrew Kiellor <akiellor@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "selenium-webdriver": "^2.46.1"
+  },
+  "devDependencies": {
+    "chromedriver": "^2.16.0",
+    "mocha": "^2.2.5",
+    "request": "^2.58.0"
+  }
+}
