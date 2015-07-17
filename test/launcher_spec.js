@@ -10,7 +10,7 @@ describe('launcher', function() {
     server = http.createServer(function(request, response) {
       response.writeHead(200, {'Content-Type': 'text/plain'});
       response.write('Hello World');
-      response.end('okay');
+      response.end();
     });
     server.listen(9000, function(err) {
       if(err) {
@@ -32,7 +32,11 @@ describe('launcher', function() {
 
     launcher.stdout.on('data', function(data) {
       data = data.toString();
-      if (data.indexOf('http://localhost:9000') !== -1) {
+      request(data, function(err, response, body) {
+        if (err) {
+          throw err;
+        }
+
         request('http://localhost:9515/sessions', function(err, response, body) {
           if(err) {
             throw err;
@@ -43,7 +47,7 @@ describe('launcher', function() {
           }
           launcher.kill('SIGTERM');
         });
-      }
+      });
     });
 
     launcher.on('exit', function(code, signal) {
