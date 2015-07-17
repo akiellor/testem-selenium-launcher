@@ -32,7 +32,7 @@ describe('launcher', function() {
 
     launcher.stdout.on('data', function(data) {
       data = data.toString();
-      if (data.indexOf('http://localhost:9000') === -1) {
+      if (data.indexOf('http://localhost:9000') !== -1) {
         request('http://localhost:9515/sessions', function(err, response, body) {
           if(err) {
             throw err;

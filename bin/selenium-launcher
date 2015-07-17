@@ -1,18 +1,48 @@
 #!/usr/bin/env node
 
-var hostname = require("os").hostname();
-var url = process.argv[2].replace('localhost', hostname);
+var Promise = require('promise');
+var webdriver = require('selenium-webdriver')
+var net = require('net');
+
+var pageUrl = process.argv[2];
 var hubUrl = process.argv[3];
 var browserName = process.argv[4];
 
-var webdriver = require('selenium-webdriver')
 
-var driver = new webdriver.Builder().
-  withCapabilities({browserName: browserName}).
-  usingServer(hubUrl).
-  build();
+function getLocalAddress(targetUrl) {
+  var url = require('url');
+  var parsedUrl = url.parse(targetUrl);
+  return new Promise(function(resolve) {
+    var client = net.connect(targetUrl.port, targetUrl.hostname, function() {
+      return client.localAddress;
+    });
+  });
+}
 
-driver.get(url).then(function() {
+function getRouteableUrl(url, hubUrl) {
+  return getLocalAddress(hubUrl).then(function(address) {
+    return url.replace('localhost', address);
+  });
+}
+
+function buildDriver(hubUrl, browserName) {
+  return new webdriver.Builder().
+    withCapabilities({browserName: browserName}).
+    usingServer(hubUrl).
+    build();
+}
+
+function spawnBrowser(driver, url) {
+  return new Promise(function(resolve) {
+    driver.get(url).then(function() {
+      resolve(url);
+    });
+  });
+}
+
+var driver = buildDriver(hubUrl, browserName);
+
+spawnBrowser(driver, pageUrl).then(function(url) {
   console.log(url);
 });
 
