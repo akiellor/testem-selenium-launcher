@@ -9,7 +9,6 @@
   "author": "Andrew Kiellor <akiellor@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "promise": "^7.0.3",
     "selenium-webdriver": "^2.46.1"
   },
   "devDependencies": {

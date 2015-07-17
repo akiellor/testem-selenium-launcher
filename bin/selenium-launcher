@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-var Promise = require('promise');
 var webdriver = require('selenium-webdriver')
 var net = require('net');
 
@@ -8,20 +7,18 @@ var pageUrl = process.argv[2];
 var hubUrl = process.argv[3];
 var browserName = process.argv[4];
 
-
-function getLocalAddress(targetUrl) {
+function getLocalAddress(targetUrl, cb) {
   var url = require('url');
   var parsedUrl = url.parse(targetUrl);
-  return new Promise(function(resolve) {
-    var client = net.connect(targetUrl.port, targetUrl.hostname, function() {
-      return client.localAddress;
-    });
+  var client = net.connect(parsedUrl.port, parsedUrl.hostname, function() {
+    cb(client.localAddress);
+    client.end();
   });
 }
 
-function getRouteableUrl(url, hubUrl) {
-  return getLocalAddress(hubUrl).then(function(address) {
-    return url.replace('localhost', address);
+function getRouteableUrl(url, hubUrl, cb) {
+  getLocalAddress(hubUrl, function(address) {
+    cb(url.replace('localhost', address));
   });
 }
 
@@ -32,18 +29,14 @@ function buildDriver(hubUrl, browserName) {
     build();
 }
 
-function spawnBrowser(driver, url) {
-  return new Promise(function(resolve) {
-    driver.get(url).then(function() {
-      resolve(url);
-    });
-  });
-}
-
 var driver = buildDriver(hubUrl, browserName);
 
-spawnBrowser(driver, pageUrl).then(function(url) {
-  console.log(url);
+driver.session_.then(function() {
+  getRouteableUrl(pageUrl, hubUrl, function(newPageUrl) {
+    driver.get(newPageUrl).then(function() {
+      console.log(newPageUrl);
+    });
+  });
 });
 
 process.on('SIGTERM', function() {
