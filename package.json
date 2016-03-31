@@ -2,7 +2,9 @@
   "name": "testem-selenium-launcher",
   "version": "0.1.0",
   "description": "A selenium launcher for Testem",
-  "main": "index.js",
+  "bin": {
+    "testem-selenium-launcher": "./bin/selenium-launcher"
+  },
   "scripts": {
     "test": "node_modules/.bin/mocha"
   },

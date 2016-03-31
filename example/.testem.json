@@ -1,0 +1,13 @@
+{
+  "framework": "mocha",
+  "src_files": [
+    "tests/*_spec.js"
+  ],
+  "launchers": {
+    "Selenium": {
+      "exe": "node_modules/.bin/testem-selenium-launcher",
+      "args": ["<url>", "http://localhost:9515", "chrome"],
+      "protocol": "browser"
+    }
+  }
+}
