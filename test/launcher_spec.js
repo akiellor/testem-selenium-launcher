@@ -4,6 +4,8 @@ var request = require('request');
 var http = require('http');
 
 describe('launcher', function() {
+  this.timeout(10000);
+
   var process;
   var server;
   before(function(done) {
