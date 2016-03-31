@@ -6,6 +6,6 @@
   },
   "dependencies": {
     "testem": "^1.6.0",
-    "testem-selenium-launcher": "../"
+    "testem-selenium-launcher": "^0.1.0"
   }
 }
