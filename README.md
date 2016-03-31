@@ -10,7 +10,7 @@ This project provides a testem launcher which can connect to an existing seleniu
 $ npm install testem-selenium-launcher --save-dev
 ```
 
-2. Add the launcher configuration to your testem config. NOTE: the '<url>' needs to be as is, this is how testem knows where to put the test url.
+2. Add the launcher configuration to your testem config. NOTE: the '&lt;url&gt;' needs to be as is, this is how testem knows where to put the test url.
 
 ```json
 {
