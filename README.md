@@ -31,3 +31,4 @@ $ npm install testem-selenium-launcher --save-dev
 $ testem -l Selenium
 ```
 
+For a working example look at the [Example](./example).
