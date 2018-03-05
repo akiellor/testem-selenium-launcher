@@ -1,0 +1,30 @@
+{
+    "root": true,
+    "parserOptions": {
+        "ecmaVersion": 2017,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "extends": "eslint:recommended",
+    "env": {
+        "browser": true
+    },
+    "globals": {
+        "$": true
+    },
+    "rules": {
+        "comma-dangle": "off",
+        "no-var": "error",
+        "prefer-const": "error",
+        "quotes": [
+            "error",
+            "single",
+            {
+                "avoidEscape": true,
+                "allowTemplateLiterals": true
+            }
+        ]
+    }
+}
