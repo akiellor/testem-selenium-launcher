@@ -3,11 +3,11 @@
 
 const webdriver = require('selenium-webdriver')
 const net = require('net');
+const url = require('url');
 
 const pageUrl = process.argv[2];
 const hubUrl = process.argv[3];
 const browserName = process.argv[4];
-const url = require('url');
 
 const driver = buildDriver(hubUrl, browserName);
 
