@@ -11,10 +11,10 @@
   "author": "Andrew Kiellor <akiellor@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "selenium-webdriver": "^2.46.1"
+    "selenium-webdriver": "^3.8.1"
   },
   "devDependencies": {
-    "chromedriver": "^2.16.0",
+    "chromedriver": "^2.35.0",
     "mocha": "^2.2.5",
     "request": "^2.58.0"
   }
