@@ -16,7 +16,7 @@ driver.session_
   getRouteableUrl(pageUrl, hubUrl, function(newPageUrl) {
     driver.get(newPageUrl)
     .then(function() {
-      console.log(newPageUrl);
+      console.log(newPageUrl); // eslint-disable-line no-console
     });
   });
 });
