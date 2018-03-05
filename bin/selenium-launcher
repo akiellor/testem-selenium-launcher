@@ -7,9 +7,27 @@ const net = require('net');
 const pageUrl = process.argv[2];
 const hubUrl = process.argv[3];
 const browserName = process.argv[4];
+const url = require('url');
+
+const driver = buildDriver(hubUrl, browserName);
+
+driver.session_.then(function() {
+  getRouteableUrl(pageUrl, hubUrl, function(newPageUrl) {
+    driver.get(newPageUrl).then(function() {
+      console.log(newPageUrl);
+    });
+  });
+});
+
+process.on('SIGTERM', function() {
+  driver.quit().then(function() {
+    process.exit();
+  });
+});
+
+process.stdin.resume();
 
 function getLocalAddress(targetUrl, cb) {
-  const url = require('url');
   const parsedUrl = url.parse(targetUrl);
   const client = net.connect(parsedUrl.port, parsedUrl.hostname, function() {
     cb(client.localAddress);
@@ -29,21 +47,3 @@ function buildDriver(hubUrl, browserName) {
     usingServer(hubUrl).
     build();
 }
-
-const driver = buildDriver(hubUrl, browserName);
-
-driver.session_.then(function() {
-  getRouteableUrl(pageUrl, hubUrl, function(newPageUrl) {
-    driver.get(newPageUrl).then(function() {
-      console.log(newPageUrl);
-    });
-  });
-});
-
-process.on('SIGTERM', function() {
-  driver.quit().then(function() {
-    process.exit();
-  });
-});
-
-process.stdin.resume();
