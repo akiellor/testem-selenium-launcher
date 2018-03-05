@@ -21,6 +21,7 @@ driver.session_
   });
 });
 
+// TODO we need to do this more gracefully
 process.on('SIGTERM', function() {
   driver.quit()
   .then(function() {
