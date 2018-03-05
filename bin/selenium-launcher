@@ -11,7 +11,8 @@ const url = require('url');
 
 const driver = buildDriver(hubUrl, browserName);
 
-driver.session_.then(function() {
+driver.session_
+.then(function() {
   getRouteableUrl(pageUrl, hubUrl, function(newPageUrl) {
     driver.get(newPageUrl).then(function() {
       console.log(newPageUrl);
@@ -20,7 +21,8 @@ driver.session_.then(function() {
 });
 
 process.on('SIGTERM', function() {
-  driver.quit().then(function() {
+  driver.quit()
+  .then(function() {
     process.exit();
   });
 });
@@ -42,8 +44,8 @@ function getRouteableUrl(url, hubUrl, cb) {
 }
 
 function buildDriver(hubUrl, browserName) {
-  return new webdriver.Builder().
-    withCapabilities({browserName: browserName}).
-    usingServer(hubUrl).
-    build();
+  return new webdriver.Builder()
+    .withCapabilities({browserName: browserName})
+    .usingServer(hubUrl)
+    .build();
 }
