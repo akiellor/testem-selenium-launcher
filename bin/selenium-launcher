@@ -14,7 +14,8 @@ const driver = buildDriver(hubUrl, browserName);
 driver.session_
 .then(function() {
   getRouteableUrl(pageUrl, hubUrl, function(newPageUrl) {
-    driver.get(newPageUrl).then(function() {
+    driver.get(newPageUrl)
+    .then(function() {
       console.log(newPageUrl);
     });
   });
