@@ -4,9 +4,21 @@
     "tests/*_spec.js"
   ],
   "launchers": {
-    "Selenium": {
+    "Chrome_iPhone7-portrait": {
       "exe": "node_modules/.bin/testem-selenium-launcher",
-      "args": ["<url>", "http://localhost:9515", "chrome"],
+      "args": [
+        "<url>",
+        "http://localhost:9515",
+        {
+          "browserName": "chrome",
+          "chromeOptions": {
+            "args": [
+              "--test-type",
+              "--window-size=414,736"
+            ]
+          }
+        }
+      ],
       "protocol": "browser"
     }
   }
