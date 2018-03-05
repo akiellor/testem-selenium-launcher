@@ -1,16 +1,17 @@
 #!/usr/bin/env node
+/* eslint-env node */
 
-var webdriver = require('selenium-webdriver')
-var net = require('net');
+const webdriver = require('selenium-webdriver')
+const net = require('net');
 
-var pageUrl = process.argv[2];
-var hubUrl = process.argv[3];
-var browserName = process.argv[4];
+const pageUrl = process.argv[2];
+const hubUrl = process.argv[3];
+const browserName = process.argv[4];
 
 function getLocalAddress(targetUrl, cb) {
-  var url = require('url');
-  var parsedUrl = url.parse(targetUrl);
-  var client = net.connect(parsedUrl.port, parsedUrl.hostname, function() {
+  const url = require('url');
+  const parsedUrl = url.parse(targetUrl);
+  const client = net.connect(parsedUrl.port, parsedUrl.hostname, function() {
     cb(client.localAddress);
     client.end();
   });
@@ -29,7 +30,7 @@ function buildDriver(hubUrl, browserName) {
     build();
 }
 
-var driver = buildDriver(hubUrl, browserName);
+const driver = buildDriver(hubUrl, browserName);
 
 driver.session_.then(function() {
   getRouteableUrl(pageUrl, hubUrl, function(newPageUrl) {
