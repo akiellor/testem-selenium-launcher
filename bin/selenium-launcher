@@ -1,16 +1,39 @@
 #!/usr/bin/env node
+/* eslint-env node */
 
-var webdriver = require('selenium-webdriver')
-var net = require('net');
+const webdriver = require('selenium-webdriver')
+const net = require('net');
+const url = require('url');
 
-var pageUrl = process.argv[2];
-var hubUrl = process.argv[3];
-var browserName = process.argv[4];
+const pageUrl = process.argv[2];
+const hubUrl = process.argv[3];
+const capabilities = JSON.parse(process.argv[4]);
+
+const driver = buildDriver(hubUrl, capabilities);
+
+driver.session_
+.then(function() {
+  getRouteableUrl(pageUrl, hubUrl, function(newPageUrl) {
+    driver.get(newPageUrl)
+    .then(function() {
+      console.log(newPageUrl); // eslint-disable-line no-console
+    });
+  });
+});
+
+// TODO we need to do this more gracefully
+process.on('SIGTERM', function() {
+  driver.quit()
+  .then(function() {
+    process.exit();
+  });
+});
+
+process.stdin.resume();
 
 function getLocalAddress(targetUrl, cb) {
-  var url = require('url');
-  var parsedUrl = url.parse(targetUrl);
-  var client = net.connect(parsedUrl.port, parsedUrl.hostname, function() {
+  const parsedUrl = url.parse(targetUrl);
+  const client = net.connect(parsedUrl.port, parsedUrl.hostname, function() {
     cb(client.localAddress);
     client.end();
   });
@@ -22,27 +45,9 @@ function getRouteableUrl(url, hubUrl, cb) {
   });
 }
 
-function buildDriver(hubUrl, browserName) {
-  return new webdriver.Builder().
-    withCapabilities({browserName: browserName}).
-    usingServer(hubUrl).
-    build();
+function buildDriver(hubUrl, caps) {
+  return new webdriver.Builder()
+    .withCapabilities(caps)
+    .usingServer(hubUrl)
+    .build();
 }
-
-var driver = buildDriver(hubUrl, browserName);
-
-driver.session_.then(function() {
-  getRouteableUrl(pageUrl, hubUrl, function(newPageUrl) {
-    driver.get(newPageUrl).then(function() {
-      console.log(newPageUrl);
-    });
-  });
-});
-
-process.on('SIGTERM', function() {
-  driver.quit().then(function() {
-    process.exit();
-  });
-});
-
-process.stdin.resume();

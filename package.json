@@ -1,6 +1,6 @@
 {
   "name": "testem-selenium-launcher",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A selenium launcher for Testem",
   "bin": {
     "testem-selenium-launcher": "./bin/selenium-launcher"
@@ -11,10 +11,10 @@
   "author": "Andrew Kiellor <akiellor@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "selenium-webdriver": "^2.46.1"
+    "selenium-webdriver": "^3.6.0"
   },
   "devDependencies": {
-    "chromedriver": "^2.16.0",
+    "chromedriver": "^2.35.0",
     "mocha": "^2.2.5",
     "request": "^2.58.0"
   }
