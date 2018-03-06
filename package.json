@@ -11,7 +11,7 @@
   "author": "Andrew Kiellor <akiellor@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "selenium-webdriver": "^3.8.1"
+    "selenium-webdriver": "^3.6.0"
   },
   "devDependencies": {
     "chromedriver": "^2.35.0",
