@@ -9,15 +9,7 @@
       "args": [
         "<url>",
         "http://localhost:9515",
-        {
-          "browserName": "chrome",
-          "chromeOptions": {
-            "args": [
-              "--test-type",
-              "--window-size=414,736"
-            ]
-          }
-        }
+        "{ "browserName": "chrome", "chromeOptions": { "args": ["--test-type","--window-size=414,736"] } }"
       ],
       "protocol": "browser"
     }

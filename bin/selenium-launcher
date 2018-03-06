@@ -7,7 +7,7 @@ const url = require('url');
 
 const pageUrl = process.argv[2];
 const hubUrl = process.argv[3];
-const capabilities = process.argv[4];
+const capabilities = JSON.parse(process.argv[4]);
 
 const driver = buildDriver(hubUrl, capabilities);
 
